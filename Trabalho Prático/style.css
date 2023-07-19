@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    color: #000000;
+    font-family: helvetica;
+}
+
+div {
+    background-color: #000;
+}
+
+canvas {
+    position: absolute;
+}
+
+.hud {
+    position: absolute;
+    margin-left: 1em;
+}
+
+.hit {
+    font-weight: bold;
+    color: red;
+}

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+    <body>
+      <div id="webgl-container"></div>
+      
+      <div class="hud">
+        <h1 id="level"></h1>
+        <p>Clique nos cubos para os destruir e poder avançar de nível</p>
+        <p id="score"></p>
+    </div>
+      <script src="javaScript/three.js"></script>
+      
+      <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+      <script type="importmap">
+        {
+          "imports":{
+            "three": "https://unpkg.com/three@0.152.2/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.152.2/examples/jsm/",
+            "FBXLoader": "https://unpkg.com/three@0.152.2/examples/jsm/loaders/FBXLoader.js",
+            "PointerLockControls": "https://unpkg.com/three@0.152.2/examples/jsm/controls/PointerLockControls.js",
+            "Stats": "https://unpkg.com/three@0.152.2/examples/jsm/libs/stats.module.js",
+            "OBJLoader": "https://unpkg.com/three@0.152.2/examples/jsm/loaders/OBJLoader.js",
+            "OrbitControls": "https://unpkg.com/three@0.152.2/examples/jsm/controls/OrbitControls.js",
+            "MTLLoader": "https://unpkg.com/three@0.152.2/examples/jsm/loaders/MTLLoader.js"
+          }
+        }
+      </script>
+      <script type="module" src="javaScript/appThree.js"></script>
+    </body>
+</html>
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Quantico:400');
+
+:root {
+  --bg:         #dff;
+  --txt-base:   black;
+  --txt-hover:  #f44;
+  --btn-border-base: #f44;
+  --btn-border-hover: #fa6;
+  --btn-bg-1: rgba(255,170,102,0.05);
+  --btn-bg-2: rgba(255,170,102,0.15);
+  --btn-bg-active-1: rgba(200,200,200,0.05);
+  --btn-bg-active-2: rgba(200,200,200,0.15);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+body {
+  background-color: var(white);
+  color: var(--txt-base);
+  font-family: "Quantico", sans-serif;
+  font-size: 1.125rem;
+  letter-spacing: 0.1em;
+  margin: 0;
+  padding: 0;
+  /*overflow-y: hidden; /* Hide vertical scrollbar */
+  /*overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+
+
+.menugrid {
+  align-items: start;
+  display: grid;
+  grid-template-areas: "stack";
+  height: 100vh;
+  overflow: hidden;
+  width: 100vw;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.nav {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  grid-area: stack;
+  justify-content: flex-start;
+  padding: 3em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-link {
+  align-items: center;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 2px;
+  color: var(--txt-base);
+  display: flex;
+  flex-basis: auto;
+  justify-content: flex-start;
+  line-height: 26px;
+  height: 40px;
+  margin-bottom: -1px;
+  margin-top: -1px;
+  overflow: hidden;
+  padding: 4px 0;
+  position: relative;
+  text-decoration: none;
+  text-shadow: -1px -0.5px 0 rgba(255, 0, 0, 0.5),
+               1px -0.5px 0 rgba(0, 255, 0, 0.5),
+               0.5px 1px 0 rgba(0, 0, 255, 0.5);
+  text-transform: uppercase;
+  transition: all 200ms;
+  width: 24ch;
+  z-index: 101;
+}
+
+.nav-link:focus,
+.nav-link:hover {
+  animation-direction: normal;
+  animation-duration: 20s;
+  animation-fill-mode: both;
+  animation-name: bg-anim;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  background-image: repeating-linear-gradient(-45deg, var(--btn-bg-1), var(--btn-bg-1) 8px, var(--btn-bg-2) 8px, var(--btn-bg-2) 16px);
+  background-position: -100% 25%;
+  background-size: 200% 150%;
+  color: var(--txt-hover);
+  outline: none;
+  padding-left: 24px;
+  z-index: 102;
+}
+
+@keyframes bg-anim {
+  0% {
+    background-position: 100% 25%;
+  }
+  100% {
+    background-position: -100% 25%;
+  }
+}
+
+@keyframes arrow-pulse {
+  0% {
+    transform: translatex(0);
+  }
+  100% {
+    transform: translatex(4px);
+  }
+}
+
+.nav-link::before,
+.nav-link::before {
+  animation-direction: alternate;
+  animation-duration: 400ms;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in;
+  color: var(--btn-border-hover);
+  font-size: 0.625em;
+  left: -48px;
+  opacity: 0;
+  position: relative;
+  top: 1px;
+  transition: 400ms;
+}
+
+.nav-link:focus::before,
+.nav-link:hover::before {
+  animation-name: arrow-pulse;
+  left: -8px;
+  opacity: 1;
+}
+
+.nav-link:active {
+  background-image: repeating-linear-gradient(-45deg, var(--btn-bg-active-1), var(--btn-bg-active-1) 8px, var(--btn-bg-active-2) 8px, var(--btn-bg-active-2) 16px);
+  border-color: var(--txt-hover);
+  padding-left: 24px;
+}
+</style>
